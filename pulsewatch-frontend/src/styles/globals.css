@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  /* Backgrounds */
+  --color-bg: var(--pw-bg);
+  --color-surface: var(--pw-surface);
+  --color-surface-2: var(--pw-surface-2);
+  --color-border: var(--pw-border);
+
+  /* Text */
+  --color-fg: var(--pw-fg);
+  --color-fg-muted: var(--pw-fg-muted);
+
+  /* Status */
+  --color-up: var(--pw-up);
+  --color-down: var(--pw-down);
+  --color-degraded: var(--pw-degraded);
+
+  /* Accent (primary actions/links only) */
+  --color-accent: var(--pw-accent);
+  --color-accent-2: var(--pw-accent-2);
+
+  /* Elevation */
+  --shadow-sm: var(--pw-shadow-sm);
+  --shadow-md: var(--pw-shadow-md);
+  --shadow-lg: var(--pw-shadow-lg);
+
+  /* Type */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Motion: soft outward ring, used only on active-outage status dots */
+  --animate-status-pulse: status-pulse 2s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.15s ease-out both;
+  --animate-sparkline-scroll: sparkline-scroll 14s linear infinite;
+}
+
+/* Light palette. Also the fallback while the theme is still resolving. */
+:root {
+  color-scheme: light;
+
+  --pw-bg: #f7f8fa;
+  --pw-surface: #ffffff;
+  --pw-surface-2: #eef0f4;
+  --pw-border: #e2e4e9;
+
+  --pw-fg: #14161a;
+  --pw-fg-muted: #5b616b;
+
+  --pw-up: #16a34a;
+  --pw-down: #dc2626;
+  --pw-degraded: #d97706;
+
+  --pw-accent: #3b6fe0;
+  --pw-accent-2: #7c5cff;
+
+  --pw-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 1px rgba(16, 24, 40, 0.04);
+  --pw-shadow-md: 0 6px 16px rgba(16, 24, 40, 0.08), 0 2px 4px rgba(16, 24, 40, 0.04);
+  --pw-shadow-lg: 0 16px 40px rgba(16, 24, 40, 0.12), 0 4px 8px rgba(16, 24, 40, 0.05);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --pw-bg: #0b0d0f;
+  --pw-surface: #15181c;
+  --pw-surface-2: #1c2025;
+  --pw-border: #232730;
+
+  --pw-fg: #f2f3f5;
+  --pw-fg-muted: #8b909a;
+
+  --pw-up: #30d158;
+  --pw-down: #ff453a;
+  --pw-degraded: #ff9f0a;
+
+  --pw-accent: #5e9eff;
+  --pw-accent-2: #9b8cff;
+
+  --pw-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --pw-shadow-md: 0 8px 20px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --pw-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.45), 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, currentColor 0%, transparent);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Two identical copies of the trend line sit side by side in a 200%-wide
+   track; scrolling it exactly -50% loops seamlessly back to the start. */
+@keyframes sparkline-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 999px;
+  border: 2px solid var(--color-bg);
+}
+
+/* Skip the view-transition snapshot crossfade for theme switches, since
+   ThemeProvider already gates the whole call behind prefers-reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

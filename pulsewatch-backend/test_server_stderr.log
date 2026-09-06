@@ -1,0 +1,9 @@
+2026/09/02 13:14:28 pulsewatch backend listening on :8081
+2026/09/02 13:14:47 GET /healthz 0s
+2026/09/02 13:14:47 GET /healthz 0s
+2026/09/02 13:17:02 GET /healthz 0s
+2026/09/02 13:17:02 GET /api/alert-settings 0s
+2026/09/02 13:17:07 GET /api/alert-settings 0s
+2026/09/02 13:17:07 GET /api/settings/alerts 1.2232ms
+2026/09/02 13:17:07 GET /api/monitors 503.4µs
+2026/09/02 13:17:14 PUT /api/settings/alerts 5.4509ms
