@@ -4,6 +4,13 @@ A self-hosted uptime monitoring dashboard that tracks HTTP/HTTPS endpoints, dete
 
 ![Dashboard overview](docs/screenshots/dashboard.png)
 
+## Live demo
+
+- **App:** [pulsewatch-2p5.pages.dev](https://pulsewatch-2p5.pages.dev)
+- **API:** [pulsewatch-it4r.onrender.com](https://pulsewatch-it4r.onrender.com)
+
+> The demo runs in `DEMO_MODE` (email/webhook alerts are logged, not actually sent) with a cap on how many monitors can exist at once.
+
 ## Features
 
 - **HTTP/HTTPS monitoring** with configurable method, interval, timeout, and expected status code per monitor
