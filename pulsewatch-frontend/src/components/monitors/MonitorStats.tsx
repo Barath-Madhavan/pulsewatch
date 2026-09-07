@@ -113,16 +113,16 @@ export function MonitorStats({ monitors, isLoading }: MonitorStatsProps) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
       {tiles.map(({ icon: Icon, label, value, tone }) => (
-        <Card key={label} className="relative flex items-center gap-3 overflow-hidden p-4">
+        <Card key={label} className="relative flex items-center gap-2 overflow-hidden p-3 sm:gap-3 sm:p-4">
           <div className={`absolute inset-x-0 top-0 h-0.5 ${toneBarClasses[tone]}`} />
-          <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${toneChipClasses[tone]}`}>
-            <Icon className="size-5" />
+          <div className={`flex size-8 shrink-0 items-center justify-center rounded-lg sm:size-10 ${toneChipClasses[tone]}`}>
+            <Icon className="size-4 sm:size-5" />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold tracking-wide text-fg-muted uppercase">
+            <p className="text-[11px] font-semibold tracking-wide text-fg-muted uppercase break-words">
               {label}
             </p>
-            <p className={`text-2xl font-bold tabular-nums ${toneTextClasses[tone]}`}>{value}</p>
+            <p className={`text-lg font-bold tabular-nums sm:text-2xl ${toneTextClasses[tone]}`}>{value}</p>
           </div>
         </Card>
       ))}
