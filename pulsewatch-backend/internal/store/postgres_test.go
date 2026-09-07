@@ -9,8 +9,7 @@ import (
 )
 
 func TestNewPostgresPool_Success(t *testing.T) {
-	dbURL := defaultTestDatabaseURL
-	pool, err := NewPostgresPool(context.Background(), dbURL)
+	pool, err := NewPostgresPool(context.Background(), resolveTestDatabaseURL())
 	require.NoError(t, err)
 	defer pool.Close()
 

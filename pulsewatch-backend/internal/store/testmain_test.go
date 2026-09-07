@@ -16,6 +16,19 @@ var testPool *pgxpool.Pool
 
 const defaultTestDatabaseURL = "postgres://postgres:postgres@localhost:5433/pulsewatch_test?sslmode=disable"
 
+// resolveTestDatabaseURL is the single source of truth for which database
+// this package's integration tests hit - anything that needs a DB URL
+// (TestMain's shared pool, or a test that opens its own pool directly)
+// must go through this rather than referencing defaultTestDatabaseURL on
+// its own, or it silently stops respecting TEST_DATABASE_URL in CI/other
+// environments where the port differs from this machine's default.
+func resolveTestDatabaseURL() string {
+	if dbURL := os.Getenv("TEST_DATABASE_URL"); dbURL != "" {
+		return dbURL
+	}
+	return defaultTestDatabaseURL
+}
+
 // TestMain requires a real, already-migrated Postgres database (see
 // migrations/*.sql): these are integration tests for the store package,
 // not unit tests, and mocking pgx would just re-implement SQL semantics
@@ -23,10 +36,7 @@ const defaultTestDatabaseURL = "postgres://postgres:postgres@localhost:5433/puls
 // different instance if this machine's default (matching every other
 // isolated-test-DB step used throughout this project) doesn't apply.
 func TestMain(m *testing.M) {
-	dbURL := os.Getenv("TEST_DATABASE_URL")
-	if dbURL == "" {
-		dbURL = defaultTestDatabaseURL
-	}
+	dbURL := resolveTestDatabaseURL()
 
 	ctx := context.Background()
 	pool, err := NewPostgresPool(ctx, dbURL)
