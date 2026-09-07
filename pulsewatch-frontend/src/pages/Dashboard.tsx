@@ -21,7 +21,7 @@ export function Dashboard() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-fg">Monitors</h1>
           <p className="mt-1 text-sm text-fg-muted">
@@ -30,7 +30,7 @@ export function Dashboard() {
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
-          <div className="relative w-64 shrink-0">
+          <div className="relative min-w-0 flex-1 sm:w-64 sm:flex-none">
             <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-fg-muted" />
             <input
               type="text"

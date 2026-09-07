@@ -41,20 +41,20 @@ export function TopBar() {
   const display = getDisplay(isLoading, isError, monitors, statuses);
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-bg/85 px-6 backdrop-blur">
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between gap-2 border-b border-border bg-bg/85 px-4 backdrop-blur sm:px-6">
       <div
-        className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 shadow-sm"
+        className="inline-flex min-w-0 items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 shadow-sm"
         title={connected ? undefined : "Reconnecting to live updates…"}
       >
         <StatusDot status={display.status} size="sm" pulse={display.pulse} />
-        <span className="text-sm font-medium text-fg">{display.label}</span>
+        <span className="truncate text-sm font-medium text-fg">{display.label}</span>
       </div>
 
       <button
         type="button"
         aria-label={resolvedTheme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
         onClick={() => setPreference(resolvedTheme === "dark" ? "light" : "dark")}
-        className="rounded-full p-2 text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+        className="shrink-0 rounded-full p-2 text-fg-muted transition-colors hover:bg-surface-2 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
       >
         {resolvedTheme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
       </button>
